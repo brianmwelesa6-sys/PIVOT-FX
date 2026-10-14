@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f6f2">
+    <title>Pivot FX | Forex analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="Pivot FX home"><span class="brand-symbol">p.</span><span>pivot<span class="brand-fx">fx</span></span></a>
+      <p class="side-label">WORKSPACE</p>
+      <nav aria-label="Main navigation">
+        <a class="nav-link active" href="#overview"><span class="nav-icon">▦</span>Market overview</a>
+        <a class="nav-link" href="#trade"><span class="nav-icon">⇄</span>Trade ticket</a>
+        <a class="nav-link" href="#analysis"><span class="nav-icon">⌁</span>Technical analysis</a>
+        <a class="nav-link" href="#watchlist"><span class="nav-icon">☆</span>Watchlist</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="demo-side-note"><span class="demo-icon">i</span><div><strong>Trading disabled</strong><small>No broker connected</small></div></div>
+        <div class="profile"><div class="profile-avatar">FX</div><div><strong>Guest analyst</strong><small>Personal workspace</small></div><span class="more-icon">···</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="overview">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-symbol">p.</span> pivot<span class="brand-fx">fx</span></div>
+        <div class="breadcrumb">Workspace <span>/</span> <strong>Market overview</strong></div>
+        <div class="topbar-actions">
+          <div class="market-status" id="data-status"><span class="status-dot"></span> FX MARKET <span class="status-divider">·</span> <span id="data-status-label">DEMO DATA</span></div>
+          <button class="icon-button" id="help-button" type="button" aria-label="About this tool">?</button>
+        </div>
+      </header>
+
+      <div class="content-wrap">
+        <section class="welcome-row">
+          <div>
+            <p class="eyebrow" id="today-label"></p>
+            <h1>Market overview</h1>
+            <p class="subheading">A clearer view of the currency market.</p>
+          </div>
+          <div class="market-open"><span class="open-indicator"></span><span><strong>FX market hours</strong><small>Session times vary by timezone</small></span></div>
+        </section>
+
+        <section class="summary-grid" aria-label="Selected currency pair overview">
+          <article class="summary-card pair-summary">
+            <div class="card-topline"><span>SELECTED PAIR</span><span class="live-dot"></span></div>
+            <div class="pair-title"><div class="flag-pair" id="pair-flags"><span>🇪🇺</span><span>🇺🇸</span></div><h2 id="pair-title">EUR/USD</h2><button id="pair-select-button" class="pair-chevron" aria-label="Choose currency pair" type="button">⌄</button></div>
+            <div class="price-row"><strong id="current-price">1.08426</strong><span id="price-change" class="change positive">+0.18%</span></div>
+            <p class="microcopy" id="price-source-label">Illustrative sample price</p>
+          </article>
+          <article class="summary-card">
+            <div class="card-topline"><span>RECENT RANGE</span><span class="mini-symbol">↕</span></div>
+            <div class="range-values"><strong id="day-low">1.08142</strong><strong id="day-high">1.08791</strong></div>
+            <div class="range-track"><span id="range-position"></span><i id="range-marker"></i></div>
+            <div class="range-labels"><span>LOW</span><span>HIGH</span></div>
+          </article>
+          <article class="summary-card">
+            <div class="card-topline"><span>VOLATILITY · ATR(14)</span><span class="mini-symbol">⌁</span></div>
+            <div class="metric-value" id="atr-value">0.00182</div>
+            <div class="metric-foot"><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span id="volatility-label">Moderate</span></div>
+          </article>
+          <article class="summary-card">
+            <div class="card-topline"><span>RSI · 14 PERIOD</span><span class="mini-symbol">◌</span></div>
+            <div class="metric-value"><span id="rsi-value">54.2</span><span class="metric-unit">/ 100</span></div>
+            <div class="rsi-track"><span></span><i id="rsi-marker"></i></div>
+            <div class="range-labels"><span>OVERSOLD 30</span><span>OVERBOUGHT 70</span></div>
+          </article>
+        </section>
+
+        <section class="trading-grid" id="trade" aria-label="Trading workspace">
+          <article class="panel ticket-panel">
+            <div class="panel-heading ticket-heading">
+              <div><p class="eyebrow">ORDER WORKSPACE</p><h2>Trade ticket</h2></div>
+              <span class="disabled-badge"><span></span> LIVE ORDERS OFF</span>
+            </div>
+            <p class="ticket-caution">Broker not connected. You can preview or save a local draft, but no orders can be sent.</p>
+            <form id="ticket-form">
+              <div class="ticket-label-row"><span class="field-label">Instrument</span><span class="ticket-reference" id="ticket-reference">Reference · —</span></div>
+              <div class="ticket-instrument"><span class="ticket-flags" id="ticket-flags">🇪🇺🇺🇸</span><strong id="ticket-pair">EUR/USD</strong><span id="ticket-unit">USD</span></div>
+              <span class="field-label">Direction</span>
+              <div class="direction-switch" role="group" aria-label="Trade direction">
+                <button type="button" class="direction-button direction-long selected" data-direction="long" aria-pressed="true">Long / Buy</button>
+                <button type="button" class="direction-button direction-short" data-direction="short" aria-pressed="false">Short / Sell</button>
+              </div>
+              <label class="field-label" for="order-type">Order type</label>
+              <select id="order-type" class="ticket-control">
+                <option value="market">Market (preview only)</option>
+                <option value="limit">Limit (draft only)</option>
+              </select>
+              <div class="ticket-fields">
+                <div id="limit-price-field" hidden>
+                  <label class="field-label" for="limit-price">Limit price</label>
+                  <input class="ticket-control" id="limit-price" type="number" min="0.00001" step="any" placeholder="Enter price">
+                </div>
+                <div>
+                  <label class="field-label" for="order-units">Order size <span id="units-label">(base units)</span></label>
+                  <input class="ticket-control" id="order-units" type="number" min="1" max="10000000" step="1" value="1000" required>
+                </div>
+                <div>
+                  <label class="field-label" for="stop-loss">Stop-loss <span class="optional-label">optional</span></label>
+                  <input class="ticket-control" id="stop-loss" type="number" min="0.00001" step="any" placeholder="Not set">
+                </div>
+                <div>
+                  <label class="field-label" for="take-profit">Take-profit <span class="optional-label">optional</span></label>
+                  <input class="ticket-control" id="take-profit" type="number" min="0.00001" step="any" placeholder="Not set">
+                </div>
+              </div>
+              <div class="ticket-estimate"><span>Indicative notional <small>units × reference price · excludes margin and fees</small></span><strong id="notional-estimate">—</strong></div>
+              <p id="ticket-validation" class="ticket-validation" role="status" hidden></p>
+              <button class="button button-dark preview-button" type="submit">Preview order details</button>
+              <div class="ticket-actions">
+                <button class="button button-light" id="save-draft" type="button" disabled>Save local draft</button>
+                <button class="button button-disabled" type="button" disabled>Broker connection required</button>
+              </div>
+            </form>
+            <p class="ticket-footnote">Analysis-only workspace · No account, funds, or live trading connection.</p>
+          </article>
+          <article class="panel orders-panel">
+            <div class="panel-heading"><div><p class="eyebrow">SELECTED BROKER</p><h2>Pepperstone</h2></div><span class="offline-tag"><i></i> NOT CONNECTED</span></div>
+            <div class="broker-identity">
+              <span class="broker-mark">P</span>
+              <div><strong>Pepperstone Markets Limited</strong><small>Preferred platform: cTrader Open API</small></div>
+            </div>
+            <div class="account-empty">
+              <span class="account-empty-icon">⌁</span>
+              <strong>cTrader application setup required</strong>
+              <p>Confirm your Pepperstone account is cTrader-enabled, then register a cTrader Open API application and add its credentials to the local server.</p>
+            </div>
+            <a class="connect-guide" href="https://openapi.ctrader.com/apps" target="_blank" rel="noopener noreferrer">Open cTrader app registration ↗</a>
+            <div class="draft-heading"><strong>Local drafts</strong><span id="draft-count">0</span></div>
+            <div id="draft-list" class="draft-list"><p>No drafts saved in this session.</p></div>
+            <p class="orders-note">Broker eligibility is not verified. Account balances and order execution remain unavailable. Local drafts are temporary and are not sent to any broker.</p>
+          </article>
+        </section>
+
+        <section class="panel chart-panel" id="analysis" aria-labelledby="chart-heading">
+          <div class="chart-heading-row">
+            <div class="chart-title-group">
+              <div class="chart-title-line"><h2 id="chart-heading">EUR/USD</h2><span id="chart-market-name">Euro / US Dollar</span></div>
+              <div class="quote-meta"><span class="quote-dot"></span><span id="chart-source">Sample market prices</span><span class="meta-divider">·</span><span id="chart-time-label">Daily chart</span></div>
+            </div>
+            <div class="chart-actions">
+              <button type="button" id="refresh-data" class="refresh-button">↻ <span>Refresh</span></button>
+              <div class="time-controls" role="group" aria-label="Chart timeframe">
+                <button type="button" data-timeframe="1H">1H</button>
+                <button type="button" data-timeframe="4H">4H</button>
+                <button class="selected" type="button" data-timeframe="1D">1D</button>
+                <button type="button" data-timeframe="1W">1W</button>
+              </div>
+            </div>
+          </div>
+          <p class="api-message" id="api-message" role="status" hidden></p>
+          <div class="chart-tools">
+            <div class="indicator-toggles" role="group" aria-label="Chart indicators">
+              <label class="toggle-label"><input type="checkbox" id="ema20-toggle" checked><span class="toggle-box"></span><i class="legend-line ema20"></i> EMA 20</label>
+              <label class="toggle-label"><input type="checkbox" id="ema50-toggle" checked><span class="toggle-box"></span><i class="legend-line ema50"></i> EMA 50</label>
+              <label class="toggle-label"><input type="checkbox" id="rsi-toggle" checked><span class="toggle-box"></span><i class="legend-line rsi-line"></i> RSI</label>
+            </div>
+            <span class="chart-currency" id="chart-unit">USD</span>
+          </div>
+          <div class="chart-container">
+            <canvas id="price-chart" aria-label="Candlestick price chart with optional moving average overlays"></canvas>
+            <div class="chart-tooltip" id="chart-tooltip" role="status"></div>
+          </div>
+          <div class="chart-footer">
+            <div class="ohlc" id="ohlc-display">O — <span>H —</span> <span>L —</span> <span>C —</span></div>
+            <div class="chart-disclaimer" id="chart-disclaimer">Illustrative only <span>·</span> Not live market data</div>
+          </div>
+        </section>
+
+        <section class="lower-grid">
+          <article class="panel analysis-panel">
+            <div class="panel-heading"><div><p class="eyebrow">TECHNICAL SNAPSHOT</p><h2>Trend &amp; momentum</h2></div><span class="snapshot-icon">⌁</span></div>
+            <div class="analysis-content">
+              <div class="bias-card"><span class="bias-glyph" id="bias-glyph">↗</span><div><span class="bias-label">INDICATIVE BIAS</span><strong id="bias-title">Neutral</strong></div><span class="bias-strength" id="bias-strength">MIXED</span></div>
+              <p class="analysis-copy" id="analysis-copy">Price action and momentum indicators are mixed. Wait for stronger confirmation before drawing conclusions.</p>
+              <div class="signal-list">
+                <div class="signal-row"><span><i class="signal-dot ema-dot"></i>EMA trend</span><strong id="ema-signal">Calculating</strong></div>
+                <div class="signal-row"><span><i class="signal-dot rsi-dot"></i>RSI momentum</span><strong id="rsi-signal">Calculating</strong></div>
+                <div class="signal-row"><span><i class="signal-dot range-dot"></i>ATR volatility</span><strong id="atr-signal">Calculating</strong></div>
+              </div>
+            </div>
+          </article>
+          <article class="panel watchlist-panel" id="watchlist">
+            <div class="panel-heading"><div><p class="eyebrow">KEEP AN EYE ON IT</p><h2>Major pairs</h2></div><span class="watchlist-count">SELECT TO LOAD</span></div>
+            <div class="watchlist" id="watchlist-items"></div>
+          </article>
+        </section>
+        <footer class="page-footer"><span>Pivot FX <span class="footer-separator">/</span> Educational analysis workspace</span><span><span class="footer-dot"></span> <span id="footer-data-label">SAMPLE DATA · NOT FOR TRADING</span></span></footer>
+      </div>
+    </main>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <dialog id="info-dialog" aria-labelledby="info-title"><form method="dialog" class="info-content"><button class="dialog-close" aria-label="Close" type="submit">×</button><div class="info-symbol">i</div><p class="eyebrow">ABOUT PIVOT FX</p><h2 id="info-title">Alpha Vantage forex data</h2><p>The server fetches Alpha Vantage FX daily and weekly candles; hourly candles and the 4-hour aggregation use Alpha Vantage's premium intraday endpoint. Your API key stays on the local server in the ignored <code>.env</code> file and is never sent to the browser.</p><p>Quotes may be delayed or subject to provider plan limits. Technical indicators describe the returned candles; they are not forecasts or financial advice.</p><a class="docs-link" href="https://www.alphavantage.co/documentation/#fx" target="_blank" rel="noopener noreferrer">Read Alpha Vantage FX documentation ↗</a><button class="button button-dark" value="close">Got it</button></form></dialog>
+  </body>
+</html>

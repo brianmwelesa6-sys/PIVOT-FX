@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: pivot-fx
+    runtime: python
+    plan: free
+    buildCommand: python -m py_compile server.py
+    startCommand: python server.py
+    healthCheckPath: /healthz
+    envVars:
+      - key: ALPHAVANTAGE_API_KEY
+        sync: false
